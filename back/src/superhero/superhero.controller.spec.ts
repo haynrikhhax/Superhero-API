@@ -48,7 +48,6 @@ describe('SuperheroController', () => {
 
     const result = controller.get();
 
-    expect(() => service.getSuperheroes()).not.toThrow();
     expect(result).toEqual(superheroes);
     expect(service.getSuperheroes).toHaveBeenCalledTimes(1);
   });
