@@ -26,27 +26,26 @@ describe('SuperheroController', () => {
     service = module.get<SuperheroService>(SuperheroService);
   });
 
-  it('should call createSuperhero on the service when create() is called', () => {
+  it('should call createSuperhero on the service when create() is called', async () => {
     const newHero: CreateSuperheroDto = {
       name: 'Spiderman',
       superpower: 'spider-senses',
       humilityScore: 7,
     };
 
-    controller.create(newHero);
+    await controller.create(newHero);
 
-    expect(() => service.createSuperhero(newHero)).not.toThrow();
     expect(service.createSuperhero).toHaveBeenCalledWith(newHero);
   });
 
-  it('should return superheroes from the service when get() is called', () => {
+  it('should return superheroes from the service when get() is called', async () => {
     const superheroes: GetSuperheroDto[] = [
       { name: 'Iron Man', superpower: 'intellect', humilityScore: 6 },
     ];
 
-    jest.spyOn(service, 'getSuperheroes').mockReturnValue(superheroes);
+    jest.spyOn(service, 'getSuperheroes').mockResolvedValue(superheroes);
 
-    const result = controller.get();
+    const result = await controller.get();
 
     expect(result).toEqual(superheroes);
     expect(service.getSuperheroes).toHaveBeenCalledTimes(1);

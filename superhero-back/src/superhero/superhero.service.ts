@@ -10,31 +10,41 @@ export class SuperheroService {
   /**
    * Returns the list of superheroes.
    */
-  get() {
-    return this.superheroes;
+  get(): Promise<GetSuperheroDto[]> {
+    return new Promise((resolve) => {
+      resolve(this.superheroes);
+    });
   }
 
   /**
    * Sets the list of superheroes.
    * @param superheroes - The updated list of superheroes.
    */
-  set(superheroes: GetSuperheroDto[]): void {
-    this.superheroes = superheroes;
+  set(superheroes: GetSuperheroDto[]): Promise<void> {
+    return new Promise((resolve) => {
+      this.superheroes = superheroes;
+      resolve();
+    });
   }
 
   /**
    * Retrieves superheroes sorted by humility score in descending order.
    * @returns Sorted array of superheroes.
    */
-  getSuperheroes(): GetSuperheroDto[] {
-    return this.get().sort((a, b) => b['humilityScore'] - a['humilityScore']);
+  getSuperheroes(): Promise<GetSuperheroDto[]> {
+    return new Promise((resolve) => {
+      resolve(this.get().then((heroes) => heroes.sort((a, b) => b['humilityScore'] - a['humilityScore'])));
+    });
   }
 
   /**
    * Adds a new superhero to the list.
    * @param superhero - The superhero to add.
    */
-  createSuperhero(superhero: CreateSuperheroDto) {
-    this.set([...this.get(), superhero]);
+  createSuperhero(superhero: CreateSuperheroDto): Promise<void> {
+    return new Promise((resolve) => {
+      this.superheroes.push(superhero);
+      resolve();
+    });
   }
 }

@@ -15,8 +15,8 @@ export class SuperheroController {
    * @param createSuperheroDto - The data transfer object containing superhero details.
    */
   @Post()
-  create(@Body() createSuperheroDto: CreateSuperheroDto) {
-    this.superheroService.createSuperhero(createSuperheroDto);
+  async create(@Body() createSuperheroDto: CreateSuperheroDto) {
+    await this.superheroService.createSuperhero(createSuperheroDto);
   }
 
   /**
@@ -24,7 +24,7 @@ export class SuperheroController {
    * @returns An array of superheroes sorted by humility score in descending order.
    */
   @Get()
-  get() {
-    return this.superheroService.getSuperheroes();
+  async get() {
+    return await this.superheroService.getSuperheroes();
   }
 }

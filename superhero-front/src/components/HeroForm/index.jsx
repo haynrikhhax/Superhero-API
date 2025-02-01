@@ -9,19 +9,24 @@ const HeroForm = ({ fetchHeroes }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/superhero", {
+      const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
+      await axios.post(`${baseUrl}superhero`, {
         name,
         superpower,
         humilityScore: parseInt(humilityScore),
       });
-      fetchHeroes(); // Refresh the hero list after adding a new hero
-      setName("");
-      setSuperpower("");
-      setHumilityScore("");
+      fetchHeroes();
+      resetForm()
     } catch (error) {
       console.error("Error adding superhero:", error);
     }
   };
+
+  function resetForm() {
+    setName("");
+    setSuperpower("");
+    setHumilityScore("");
+  }
 
   return (
     <form

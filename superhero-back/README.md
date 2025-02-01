@@ -46,7 +46,8 @@ curl --location 'http://localhost:3000/superhero' \
 ## If I had more time
 
 Set up a real database like PostgreSQL or MongoDB, depending on whether we need a relational or non-relational database.
-Also I could containerize the project using Docker for better scalability and deployment.
+Also I could containerize the project using Docker for better scalability and deployment. Also in the dto sections
+I could have created a base hero dro that wouldcontain all the base properties and from there just extend the other dtos.
 
 ## Task expansion with a teammate
 If working with a teammate, we could:
@@ -56,3 +57,5 @@ If working with a teammate, we could:
 3. Set up CI/CD pipelines for automated testing and deployment.
 4. Improve error handling and logging for better debugging.
 
+
+NOTE: I made the services with promises since in 99% of the cases we dont store data in memory but in db so i kind of mocked the logi cf retrieving from db

@@ -9,31 +9,34 @@ describe('SuperheroService', () => {
     service = new SuperheroService();
   });
 
-  it('should return an empty array initially', () => {
-    expect(service.getSuperheroes()).toEqual([]);
+  it('should return an empty array initially', async () => {
+    const superheroes = await service.getSuperheroes();
+    expect(superheroes).toEqual([]);
   });
 
-  it('should create and store a superhero', () => {
+  it('should create and store a superhero', async () => {
     const newHero: CreateSuperheroDto = {
       name: 'Batman',
       superpower: 'money',
       humilityScore: 8,
     };
-    service.createSuperhero(newHero);
+    
+    await service.createSuperhero(newHero);
 
-    expect(service.getSuperheroes()).toHaveLength(1);
-    expect(service.getSuperheroes()[0]).toEqual(newHero);
+    const superheroes = await service.getSuperheroes();
+    expect(superheroes).toHaveLength(1);
+    expect(superheroes[0]).toEqual(newHero);
   });
 
-  it('should return superheroes sorted by humilityScore in descending order', () => {
+  it('should return superheroes sorted by humilityScore in descending order', async () => {
     const heroes: GetSuperheroDto[] = [
       { name: 'Superman', superpower: 'gravity', humilityScore: 5 },
       { name: 'Batman', superpower: 'money', humilityScore: 8 },
-      { name: 'Wonder Woman', superpower: 'warior', humilityScore: 10 },
+      { name: 'Wonder Woman', superpower: 'warrior', humilityScore: 10 },
     ];
 
-    service.set(heroes);
-    const sortedHeroes = service.getSuperheroes();
+    await service.set(heroes);
+    const sortedHeroes = await service.getSuperheroes();
 
     expect(sortedHeroes[0].name).toBe('Wonder Woman');
     expect(sortedHeroes[1].name).toBe('Batman');

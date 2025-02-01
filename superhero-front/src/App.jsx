@@ -8,7 +8,8 @@ const App = () => {
 
   const fetchHeroes = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/superhero");
+      const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
+      const response = await axios.get(`${baseUrl}superhero`);
       setHeroes(response.data);
     } catch (error) {
       console.error("Error fetching superheroes:", error);
